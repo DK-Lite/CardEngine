@@ -7,9 +7,14 @@ def main():
     engine = CardEngine()
     engine.add_card(CardSamsung(), loader.get_keys()['SAMSUNG'])
     engine.add_card(CardHana(), loader.get_keys()['HANA'])
-
-
-
+    engine.add_card(CardHyundai(), loader.get_keys()['HYUNDAI'])
+    engine.add_card(CardKb(), loader.get_keys()['KB'])
+    engine.add_card(CardKbank(), loader.get_keys()['KBANK'])
+    engine.add_card(CardNongHyup(), loader.get_keys()['NONGHYUP'])
+    engine.add_card(CardSc(), loader.get_keys()['SC'])
+    engine.add_card(CardShinhan(), loader.get_keys()['SHINHAN'])
+    engine.add_card(CardUri(), loader.get_keys()['Uri'])
+    
 
     #result = engine.recognize('15888900', "[Web발신]\n삼성카드승인4909황*호\n05/29 09:56 원서접수\n25,800원 일시불")
     #print(result)

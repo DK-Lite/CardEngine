@@ -2,12 +2,12 @@ import re
 from .module import CardModule
 from .card_information import CardInformation
 
-class CardKb(CardModule):
+class CardNongHyup(CardModule):
     def __init__(self):
         pass
 
     def get_number(self, sms):
-        re_number = re.findall(r"\[*[K]+[B]+[국민]+[체크]*[카드]*[은행]*\]*[\(\*0-9\)]*", sms)
+        re_number = re.findall(r"[NH]+[농협]*[카드]+\(*[0-9]*\)*", sms)
         try:
             return re_number[0]
         except Exception as e:
@@ -21,14 +21,14 @@ class CardKb(CardModule):
             return None
 
     def get_date(self, sms):
-        re_date = re.findall(r'[0-9]*/[0-9]*', sms)
+        re_date = re.findall(r'[0-9]*[\/]+[0-9]*', sms)
         try:
             return re_date[0]
         except Exception as e:
             return None
 
     def get_time(self, sms):
-        re_time = re.findall(r'[0-2]+[0-9]*:[0-9]*', sms)
+        re_time = re.findall(r'[0-9]*:[0-9]*', sms)
         try:
             return re_time[0]
         except Exception as e:
@@ -47,7 +47,7 @@ class CardKb(CardModule):
             return ''.join([ i for i in re_money[1] if i.isdigit()])
         except Exception as e:
             return None
-            
+
     def recognize(self, sms):
 
         number = self.get_number(sms)

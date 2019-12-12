@@ -2,12 +2,12 @@ import re
 from .module import CardModule
 from .card_information import CardInformation
 
-class CardKb(CardModule):
+class CardHyundai(CardModule):
     def __init__(self):
         pass
 
     def get_number(self, sms):
-        re_number = re.findall(r"\[*[K]+[B]+[국민]+[체크]*[카드]*[은행]*\]*[\(\*0-9\)]*", sms)
+        re_number = re.findall(r"\[*[현대]+[카드]*\]* [A-Z0-9]*", sms)
         try:
             return re_number[0]
         except Exception as e:

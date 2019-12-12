@@ -1,4 +1,5 @@
 from engine import *
+
 import json
 
 def main():
@@ -10,6 +11,8 @@ def main():
 
 
 
+    #result = engine.recognize('15888900', "[Web발신]\n삼성카드승인4909황*호\n05/29 09:56 원서접수\n25,800원 일시불")
+    #print(result)
     # "[Web발신]\n삼성카드승인4909황*호\n05/29 09:56 원서접수\n25,800원 일시불"
 
     # result = engine.recognize('15888900', "[Web발신]\n삼성카드승인4909황*호\n05/29 09:56 원서접수\n25,800원 일시불")

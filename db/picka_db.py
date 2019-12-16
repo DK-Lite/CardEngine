@@ -29,15 +29,20 @@ class PickaDB():
                 'number' : row['number'],
                 'sentence' : row['sentence']
             })
+
         return output
 
     def insert(self, query):
-        curs = conn.cursor()
+        curs = self.conn.cursor()
         ret = curs.execute(q)
-        conn.commit()
-        conn.close()
+        self.conn.commit()
         return ret
 
+    def close(self):
+        self.conn.close()
+
+    def __del__(self):
+        self.close()
 
 
 def main():

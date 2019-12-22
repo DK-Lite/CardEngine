@@ -7,7 +7,7 @@ class CardHyundai(CardModule):
         pass
 
     def get_number(self, sms):
-        re_number = re.findall(r"\[*[현대]+[카드]*\]* [A-Z0-9]*", sms)
+        re_number = re.findall(r"\[*[현대]+[카드]*\]* [A-Z0-9]*\]*", sms)
         try:
             return re_number[0]
         except Exception as e:

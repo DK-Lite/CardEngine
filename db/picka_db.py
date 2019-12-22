@@ -26,17 +26,20 @@ class PickaDB(SSHTunnelForwarder):
                     db=database,
                     charset='utf8')
 
-        
-    def query(self, query):    
-        table = pd.read_sql_query(query, self.conn)
 
+    def select(self, query):    
+        table = pd.read_sql_query(query, self.conn)
+        return table
+        
+    def filter(self, table):    
         output = []
-        for idx, row in table.iterrows():
+        for _, row in table.iterrows():
             output.append({
                 'number' : row['from_number'],
-                'sentence' : row['text']
+                'sentence' : row['text'],
+                'id' : row['id']
             })
-
+            
         return output
 
     def insert(self, query):

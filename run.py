@@ -24,10 +24,9 @@ def main():
         info = json.load(json_file)
 
 
-    
+    db = PickaDB()
     db.connect(**info)
     datas = db.query('''SELECT * FROM sms_laws ORDER BY id ASC''')
-    print(datas)
 
     results = []
     for data in datas:

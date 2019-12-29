@@ -2,20 +2,6 @@ from engine import *
 from db import *
 import json, argparse
 
-def create_insert_query(table, result):
-    header = []
-    value = ''
-    for k,v in result.items():
-        header.append('`{}`'.format(k))
-        if isinstance(v, str):
-            value += "'{}',".format(v)
-        else:
-            value += str(v) + ','
-
-    return '''insert into {} ({}) values({})'''.format(table, ','.join(header), value[:-1])
-
-
-
 def main():
 
     arg = argparse.ArgumentParser()
@@ -34,7 +20,6 @@ def main():
     engine.add_card(CardShinhan(), loader.get_keys()['SHINHAN'])
     engine.add_card(CardNongHyup(), loader.get_keys()['NONGHYUP'])
     
-
     with open("db/key/picka_connect.json") as json_file:
         info = json.load(json_file)
 
@@ -44,26 +29,23 @@ def main():
     datas = db.filter(datas)
     datas = datas[configs.from_id : configs.to_id]
 
-    results = []
     for data in datas:
         try :
             output = engine.recognize(str(data['number']), data['sentence'])
-            output['ori'] = data['sentence']
-            # output['card_issuer'] = output['card_number']
-            # output['currency'] = 'KRW'
-            # output['sms_law_id'] = data['id']
-            results.append(output)
+            output['card_issuer'] = output['card_number']
+            output['currency'] = 'KRW'
+            output['sms_law_id'] = data['id']
 
-            #query = create_insert_query('sms_parseds', output)
-            #db.insert(query)
+            query = create_insert_query('sms_parseds', output)
+            db.insert(query)
+
         except Exception as ex:
             print("Error : " + ex)
         
-    with open("output.json", "w", encoding="utf-8") as make_file:
-        json.dump(results, make_file, ensure_ascii=False, indent="\t")
-    
-
-    
+    # results = []
+    # ...
+    # with open("output.json", "w", encoding="utf-8") as make_file:
+    #     json.dump(results, make_file, ensure_ascii=False, indent="\t")
     
 if __name__ == "__main__":
     main()
